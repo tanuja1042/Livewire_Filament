@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Product extends Model
 {
@@ -37,5 +38,14 @@ class Product extends Model
     public function orderItems()
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+    protected static function booted()
+    {
+        static::creating(function ($product) {
+            if (empty($product->slug)) {
+                $product->slug = Str::slug($product->name);
+            }
+        });
     }
 }

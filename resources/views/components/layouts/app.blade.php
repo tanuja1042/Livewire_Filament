@@ -6,6 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Learning Management System (LMS)</title>
         <link rel="stylesheet" href="{{ asset('front/style.css') }}?v={{ time() }}">
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
     </head>
     <header class="header">
