@@ -173,7 +173,7 @@ class OrderResource extends Resource
                                     foreach ($repeaters as $key => $repeater) {
                                         $total += $get("items.{$key}.total_amount");
                                     }
-                                    $set('grand_total', $total);
+                                    $get('grand_total', $total);
                                     return 'INR ' . number_format($total, 2); // Format calculated total
                                 }),
 
