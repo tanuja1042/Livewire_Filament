@@ -40,17 +40,24 @@ Route::get('/categories', CategoriesPage::class)->name('category');
 Route::get('/products', ProductPage::class)->name('product');
 Route::get('/cart', CartPage::class)->name('cart');
 Route::get('/products/{slug}', ProductDetailsPage::class);
-Route::get('/checkout', CheckoutPage::class);
-Route::get('/my-orders', MyOrdersPage::class);
-Route::get('/my-orders/{order}', MyOrderDetailPage::class);
 
 
-Route::get('/login', LoginPage::class);
-Route::get('/register', RegisterPage::class);
-Route::get('/forgot', ForgotPasswordPage::class);
-Route::get('/reset', ResetPasswordPage::class);
+Route::middleware('guest')->group(function (){
+    Route::get('/login', LoginPage::class)->name('login');
+    Route::get('/register', RegisterPage::class);
+    Route::get('/forgot', ForgotPasswordPage::class)->name('password.request');
+    Route::get('/reset/{token}', ResetPasswordPage::class)->name('password.reset');
+});
 
 
-Route::get('/success', SuccessPage::class);
-Route::get('/cancel', CancelPage::class);
-
+Route::middleware('auth')->group(function (){
+    Route::get('/logout', function () {
+        auth()->logout();
+        return redirect('/');
+    })->name('logout');
+    Route::get('/checkout', CheckoutPage::class)->name('checkout');
+    Route::get('/my-orders', MyOrdersPage::class)->name('myorder');
+    Route::get('/my-orders/{order}', MyOrderDetailPage::class);
+    Route::get('/success', SuccessPage::class);
+    Route::get('/cancel', CancelPage::class);
+});
