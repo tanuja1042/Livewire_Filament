@@ -40,6 +40,12 @@ class UserResource extends Resource
                 ->maxlength(255)
                 ->unique(ignoreRecord: true)
                 ->required(),
+                Forms\Components\Select::make('roles')
+                    ->relationship('roles', 'name')
+                    ->multiple(),
+                Forms\Components\MultiSelect::make('permissions')
+                    ->relationship('permissions', 'name')
+                    ->preload(),
                 DateTimePicker::make('email_verified_at')
                 ->label('Email Verified At')
                 ->required(),
@@ -56,6 +62,8 @@ class UserResource extends Resource
             ->columns([
                 TextColumn::make('name')->sortable()->searchable(),
                 TextColumn::make('email')->searchable(),
+                Tables\Columns\TagsColumn::make('roles.name')->label('Roles'),
+                Tables\Columns\TagsColumn::make('permissions.name')->label('Permissions'),
                 TextColumn::make('email_verified_at')->dateTime()->searchable(),
                 TextColumn::make('created_at')->dateTime()->searchable(),
             ])
