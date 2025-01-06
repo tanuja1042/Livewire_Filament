@@ -25,12 +25,12 @@ class CategoryController extends Controller
     public function store(ValidateCategoryRequest $request)
     {
         $data = $request->validated();
-
+        
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('categories', 'public');
             $data['image'] = $imagePath;
         }
-        dd($request->all());
+        // dd($request->all());
         $category = Category::create([
             'name' => $data['name'],
             'slug' => \Str::slug($data['name']),

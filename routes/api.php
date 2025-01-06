@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\BrandController;
 
 Route::get('/test', function () {
     return dd("Hello World!!");
@@ -13,6 +14,7 @@ Route::get('/test', function () {
 
 // Public Routes
 Route::apiResource('category', CategoryController::class);
+Route::apiResource('brand', BrandController::class);
 Route::apiResource('product', ProductController::class);
 
 
